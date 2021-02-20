@@ -46,7 +46,7 @@ export default function Header() {
           <img src={logo} alt="PineApple" className={classes.logoImage} />
         </Link>
         <div className={classes.spacer}></div>
-        <Typography color="primary">LINE MELODY</Typography>
+        <Typography color="textPrimary">LINE MELODY</Typography>
       </Toolbar>
     </AppBar>
   )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Typography, Grid, CircularProgress } from '@material-ui/core/'
+import { Typography, Grid, CircularProgress, Box } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
 import FriendsItem from './FriendsItem'
 
@@ -33,9 +33,11 @@ export default function FriendsList({ setFlashMessage }) {
 
   return (
     <div>
-      <Typography variant="h4" component="h1" className={classes.title}>
-        Gift this song to your friends
-      </Typography>
+      <Box my={6}>
+        <Typography variant="h4" component="h1" className={classes.title}>
+          Gift this song to your friends
+        </Typography>
+      </Box>
       {isLoading ? (
         <div className={classes.progress}>
           <CircularProgress color="secondary"></CircularProgress>

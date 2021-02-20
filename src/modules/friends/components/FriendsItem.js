@@ -54,7 +54,7 @@ export default function FriendsItem({
   }
 
   return (
-    <Grid item xs={6} sm={4} lg={3}>
+    <Grid item xs={12} sm={6} lg={3}>
       <Card>
         <CardMedia
           image={pictureUrl}
@@ -66,11 +66,21 @@ export default function FriendsItem({
             {displayName}
           </Typography>
           {ownership === 'available' ? (
-            <Button variant="contained" color="primary" onClick={purchase}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={purchase}
+              size="small"
+            >
               Gift this song
             </Button>
           ) : (
-            <Typography variant="caption" component="p" color="textSecondary">
+            <Typography
+              variant="body1"
+              component="p"
+              color="textSecondary"
+              gutterBottom
+            >
               This user already own this song
             </Typography>
           )}

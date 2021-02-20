@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { Grid, Paper, Typography, ButtonGroup, Button } from '@material-ui/core'
+import { Grid, Paper, Typography } from '@material-ui/core'
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,11 +60,12 @@ export default function SongItem() {
               <Typography variant="h4" component="h1">
                 {song?.title}
               </Typography>
-              <Typography variant="h4" component="h1">
+              <Typography variant="h4" component="h1" gutterBottom>
                 {song?.titleEn}
               </Typography>
-              <p>{song?.artist.name}</p>
-              <p>{song?.artist.nameEn}</p>
+              <Typography variant="body1" component="p">
+                Artist: {song?.artist.name} ({song?.artist.nameEn})
+              </Typography>
               <p>{song?.price} Baht</p>
               <p>{song?.coin} Coin</p>
             </Grid>
