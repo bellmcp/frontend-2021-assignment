@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function FriendsList() {
+export default function FriendsList({ setFlashMessage }) {
   const classes = useStyles()
   const [friends, setFriends] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -22,9 +22,7 @@ export default function FriendsList() {
   useEffect(() => {
     const loadFriends = async () => {
       setIsLoading(true)
-      const { data } = await axios.get('/friends', {
-        baseURL: 'http://127.0.0.1:1880/api',
-      })
+      const { data } = await axios.get('/friends')
 
       setFriends(data.items)
       setIsLoading(false)
@@ -36,7 +34,7 @@ export default function FriendsList() {
   return (
     <div>
       <Typography variant="h4" component="h1" className={classes.title}>
-        Friends List
+        Gift this song to your friends
       </Typography>
       {isLoading ? (
         <div className={classes.progress}>
@@ -45,7 +43,11 @@ export default function FriendsList() {
       ) : (
         <Grid container spacing={2}>
           {friends.map((friend) => (
-            <FriendsItem key={friend.id} {...friend}></FriendsItem>
+            <FriendsItem
+              key={friend.id}
+              {...friend}
+              setFlashMessage={setFlashMessage}
+            ></FriendsItem>
           ))}
         </Grid>
       )}

@@ -1,7 +1,8 @@
-import React from 'react'
-import { Container, Toolbar } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Container, Toolbar, Snackbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import FriendList from 'modules/friends/FriendsList'
+import SongsItem from 'modules/songs/SongsItem'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -10,13 +11,29 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Content() {
+  const [flashMessage, setFlashMessage] = useState()
   const classes = useStyles()
+
+  const closeFlashMessage = () => setFlashMessage(null)
 
   return (
     <main className={classes.content}>
       <Container maxWidth="lg">
         <Toolbar></Toolbar>
-        <FriendList />
+        <SongsItem />
+        <FriendList setFlashMessage={setFlashMessage} />
+        {flashMessage && (
+          <Snackbar
+            open
+            message={flashMessage}
+            onClick={closeFlashMessage}
+            action={
+              <Button color="inherit" size="small">
+                Close
+              </Button>
+            }
+          ></Snackbar>
+        )}
       </Container>
     </main>
   )
