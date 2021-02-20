@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Container, Toolbar, Snackbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import FriendList from 'modules/friends/FriendsList'
-import SongsItem from 'modules/songs/SongsItem'
+import FriendList from 'modules/friends/components/FriendsList'
+import SongsItem from 'modules/songs/components/SongsItem'
 
 const useStyles = makeStyles((theme) => ({
   content: {
