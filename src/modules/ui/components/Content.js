@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import FriendList from 'modules/friends/FriendsList'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -15,6 +16,7 @@ export default function Content() {
     <main className={classes.content}>
       <Container maxWidth="lg">
         <Toolbar></Toolbar>
+        <FriendList />
       </Container>
     </main>
   )

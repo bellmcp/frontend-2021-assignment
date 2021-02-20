@@ -1,5 +1,11 @@
 import React from 'react'
-import { AppBar, Link, Toolbar, IconButton, Tooltip } from '@material-ui/core'
+import {
+  AppBar,
+  Link,
+  Toolbar,
+  IconButton,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { InsertEmoticon as SmileIcon } from '@material-ui/icons'
 import logo from 'assets/images/logo.png'
@@ -40,11 +46,7 @@ export default function Header() {
           <img src={logo} alt="PineApple" className={classes.logoImage} />
         </Link>
         <div className={classes.spacer}></div>
-        <Tooltip title="Button">
-          <IconButton color="inherit" onClick={() => {}}>
-            <SmileIcon></SmileIcon>
-          </IconButton>
-        </Tooltip>
+        <Typography color="initial">LINE MELODY</Typography>
       </Toolbar>
     </AppBar>
   )
