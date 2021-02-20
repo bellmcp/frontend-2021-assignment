@@ -23,7 +23,7 @@ export default function Footer() {
           </Typography>
           <Typography variant="body2" color="textSecondary">
             Developed by{' '}
-            <Link href="https://bellmcp.work" color="secondary">
+            <Link href="https://bellmcp.work" color="primary">
               Wutipat Khamnuansin
             </Link>
             .

@@ -66,11 +66,13 @@ export default function FriendsItem({
             {displayName}
           </Typography>
           {ownership === 'available' ? (
-            <Button variant="text" color="default" onClick={purchase}>
+            <Button variant="contained" color="primary" onClick={purchase}>
               Gift this song
             </Button>
           ) : (
-            <>This user already own this song</>
+            <Typography variant="caption" component="p" color="textSecondary">
+              This user already own this song
+            </Typography>
           )}
         </CardContent>
       </Card>

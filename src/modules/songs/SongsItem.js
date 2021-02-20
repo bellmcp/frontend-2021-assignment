@@ -37,7 +37,7 @@ export default function SongItem() {
     loadSong()
   }, [])
 
-  // if (!product) return null
+  if (!song) return null
 
   return (
     <Paper className={classes.root}>
