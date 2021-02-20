@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Grid, CircularProgress, Box } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
+
 import FriendsItem from './FriendsItem'
+import * as actions from '../actions'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -17,20 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FriendsList({ setFlashMessage }) {
   const classes = useStyles()
-  const [friends, setFriends] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const loadFriends = async () => {
-      setIsLoading(true)
-      const { data } = await axios.get('/friends')
+    const action = actions.loadFriends()
+    dispatch(action)
+  }, [dispatch])
 
-      setFriends(data.items)
-      setIsLoading(false)
-    }
-
-    loadFriends()
-  }, [])
+  const { isLoading, items: friends } = useSelector((state) => state.friends)
 
   return (
     <div>
