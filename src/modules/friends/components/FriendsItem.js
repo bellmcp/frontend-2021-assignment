@@ -3,12 +3,12 @@ import axios from 'axios'
 import {
   Grid,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   Typography,
 } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
+import { Redeem as RedeemIcon } from '@material-ui/icons'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +62,13 @@ export default function FriendsItem({
           className={classes.media}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            align="center"
+            style={{ fontWeight: 600 }}
+          >
             {displayName}
           </Typography>
           {ownership === 'available' ? (
@@ -71,8 +77,11 @@ export default function FriendsItem({
               color="primary"
               onClick={purchase}
               size="small"
+              fullWidth
+              startIcon={<RedeemIcon />}
+              disableElevation
             >
-              Gift this song
+              Send Gift
             </Button>
           ) : (
             <Typography
@@ -80,6 +89,7 @@ export default function FriendsItem({
               component="p"
               color="textSecondary"
               gutterBottom
+              align="center"
             >
               This user already own this song
             </Typography>

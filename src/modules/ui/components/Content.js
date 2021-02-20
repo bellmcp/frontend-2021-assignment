@@ -6,7 +6,7 @@ import SongsItem from 'modules/songs/components/SongsItem'
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    padding: theme.spacing(2, 0),
+    padding: theme.spacing(4, 0),
   },
 }))
 
@@ -20,6 +20,7 @@ export default function Content() {
     <main className={classes.content}>
       <Container maxWidth="lg">
         <Toolbar></Toolbar>
+
         <SongsItem />
         <FriendList setFlashMessage={setFlashMessage} />
         {flashMessage && (

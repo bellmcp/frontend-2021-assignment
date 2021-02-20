@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: 'center',
     marginBottom: theme.spacing(2),
+    fontWeight: 600,
   },
   progress: {
     textAlign: 'center',
@@ -35,7 +36,7 @@ export default function FriendsList({ setFlashMessage }) {
     <div>
       <Box my={6}>
         <Typography variant="h4" component="h1" className={classes.title}>
-          Gift this song to your friends
+          Send this melody to your friends
         </Typography>
       </Box>
       {isLoading ? (

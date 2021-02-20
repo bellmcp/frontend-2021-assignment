@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { Grid, Paper, Typography } from '@material-ui/core'
+import { Grid, Paper, Typography, Chip, Avatar, Box } from '@material-ui/core'
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ export default function SongItem() {
     <Paper className={classes.root}>
       <Grid
         container
-        spacing={2}
+        spacing={6}
         justify={isMediumUp ? 'flex-start' : 'center'}
       >
         <Grid item>
@@ -57,17 +57,34 @@ export default function SongItem() {
             justify="space-between"
           >
             <Grid item>
-              <Typography variant="h4" component="h1">
+              <Typography
+                variant="h4"
+                component="h1"
+                style={{ fontWeight: 600 }}
+              >
                 {song?.title}
               </Typography>
-              <Typography variant="h4" component="h1" gutterBottom>
+              <Typography variant="h5" component="h1" gutterBottom>
                 {song?.titleEn}
               </Typography>
-              <Typography variant="body1" component="p">
-                Artist: {song?.artist.name} ({song?.artist.nameEn})
-              </Typography>
-              <p>{song?.price} Baht</p>
-              <p>{song?.coin} Coin</p>
+              <Chip
+                avatar={<Avatar src={song?.artist.picture} />}
+                label={`${song?.artist.name} (${song?.artist.nameEn})`}
+                variant="outlined"
+              />
+              <Box mt={3}>
+                <Typography variant="h6" component="p" color="primary">
+                  {song?.price} THB
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  gutterBottom
+                  color="textSecondary"
+                >
+                  or redeem with {song?.coin} Coins
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
