@@ -1,41 +1,50 @@
-import React, { useState } from 'react'
-import { Container, Toolbar, Snackbar, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import FriendList from 'modules/friends/components/FriendsList'
-import SongsItem from 'modules/songs/components/SongsItem'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Container, Toolbar, Snackbar, IconButton } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
+import { Close as CloseIcon } from '@material-ui/icons'
 
-const useStyles = makeStyles((theme) => ({
-  content: {
-    padding: theme.spacing(4, 0),
-  },
-}))
+import SongsItem from 'modules/songs/components/SongsItem'
+import FriendList from 'modules/friends/components/FriendsList'
+import * as actions from '../actions'
 
 export default function Content() {
-  const [flashMessage, setFlashMessage] = useState()
-  const classes = useStyles()
-
-  const closeFlashMessage = () => setFlashMessage(null)
+  const dispatch = useDispatch()
+  const { isSnackbarOpen, flashMessage, alertType } = useSelector(
+    (state) => state.ui
+  )
+  const closeFlashMessage = () => dispatch(actions.clearFlashMessage())
 
   return (
-    <main className={classes.content}>
-      <Container maxWidth="lg">
-        <Toolbar></Toolbar>
-
-        <SongsItem />
-        <FriendList setFlashMessage={setFlashMessage} />
-        {flashMessage && (
-          <Snackbar
-            open
-            message={flashMessage}
+    <Container maxWidth="lg">
+      <Toolbar />
+      <SongsItem />
+      <FriendList />
+      <Snackbar
+        open={isSnackbarOpen}
+        onClose={closeFlashMessage}
+        message={flashMessage}
+        autoHideDuration={5000}
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
             onClick={closeFlashMessage}
-            action={
-              <Button color="inherit" size="small">
-                Close
-              </Button>
-            }
-          ></Snackbar>
-        )}
-      </Container>
-    </main>
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      >
+        <Alert
+          onClose={closeFlashMessage}
+          severity={alertType ? alertType : 'info'}
+          elevation={6}
+          variant="filled"
+        >
+          {flashMessage}
+        </Alert>
+      </Snackbar>
+    </Container>
   )
 }

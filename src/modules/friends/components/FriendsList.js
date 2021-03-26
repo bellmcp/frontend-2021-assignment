@@ -6,10 +6,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import FriendsItem from './FriendsItem'
 import * as actions from '../actions'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     textAlign: 'center',
-    marginBottom: theme.spacing(2),
     fontWeight: 600,
   },
   progress: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function FriendsList({ setFlashMessage }) {
+export default function FriendsList() {
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -29,27 +28,36 @@ export default function FriendsList({ setFlashMessage }) {
   const { isLoading, items: friends } = useSelector((state) => state.friends)
 
   return (
-    <div>
+    <>
       <Box my={6}>
-        <Typography variant="h4" component="h1" className={classes.title}>
+        <Typography
+          variant="h5"
+          component="h2"
+          color="textSecondary"
+          className={classes.title}
+        >
           Send this melody to your friends
         </Typography>
       </Box>
       {isLoading ? (
-        <div className={classes.progress}>
-          <CircularProgress color="secondary"></CircularProgress>
-        </div>
+        <Grid container justify="center" alignItems="center">
+          <CircularProgress color="primary"></CircularProgress>
+        </Grid>
+      ) : friends.length === 0 ? (
+        <Box my={10}>
+          <Grid container justify="center" alignItems="center">
+            <Typography variant="h6" color="textSecondary">
+              An error occurred. Please try again.
+            </Typography>
+          </Grid>
+        </Box>
       ) : (
         <Grid container spacing={2}>
           {friends.map((friend) => (
-            <FriendsItem
-              key={friend.id}
-              {...friend}
-              setFlashMessage={setFlashMessage}
-            ></FriendsItem>
+            <FriendsItem {...friend} key={friend.id}></FriendsItem>
           ))}
         </Grid>
       )}
-    </div>
+    </>
   )
 }

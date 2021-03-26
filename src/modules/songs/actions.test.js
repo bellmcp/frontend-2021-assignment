@@ -40,7 +40,7 @@ describe('songs action creator', () => {
 
     return store.dispatch(loadSong(99)).then(() => {
       const newState = store.getState()
-      expect(newState.songs.items).toEqual(song)
+      expect([newState.songs.items]).toEqual(song)
     })
   })
 })

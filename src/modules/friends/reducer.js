@@ -16,7 +16,6 @@ export default function (state = initialState, action) {
     case LOAD_FRIENDS_SUCCESS:
       return { ...state, isLoading: false, items: action.payload.friends }
     case LOAD_FRIENDS_FAILURE:
-      return { ...state, isLoading: false }
     default:
       return state
   }

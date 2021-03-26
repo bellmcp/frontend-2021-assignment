@@ -6,11 +6,13 @@ import {
 } from '@material-ui/core/styles'
 import { lightGreen } from '@material-ui/core/colors'
 import Header from './Header'
-import Content from './Content'
 import Footer from './Footer'
 
-export default function Layout() {
+export default function Layout({ children }) {
   const theme = createMuiTheme({
+    typography: {
+      fontFamily: ['Prompt', 'sans-serif'].join(','),
+    },
     palette: {
       primary: {
         main: lightGreen['A700'],
@@ -20,10 +22,10 @@ export default function Layout() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline></CssBaseline>
-      <Header></Header>
-      <Content></Content>
-      <Footer></Footer>
+      <CssBaseline />
+      <Header />
+      {children}
+      <Footer />
     </ThemeProvider>
   )
 }

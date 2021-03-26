@@ -1,87 +1,94 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import axios from 'axios/config'
 import {
   Grid,
   Card,
   CardContent,
   CardMedia,
   Typography,
+  Button,
+  Box,
 } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
-import { Redeem as RedeemIcon } from '@material-ui/icons'
-import Button from '@material-ui/core/Button'
+import { Send as SendIcon } from '@material-ui/icons'
 
-const useStyles = makeStyles((theme) => ({
-  media: {
-    height: 200,
+import * as actions from '../actions'
+
+const CARD_MEDIA_HEIGHT = 200
+
+const useStyles = makeStyles(() => ({
+  root: {
+    boxShadow: '0 0 20px 0 rgba(0,0,0,0.12)',
+    borderRadius: 8,
+    margin: '8px 4px',
+    transition: '0.3s',
+    '&:hover': {
+      transform: 'translateY(-4px)',
+    },
   },
-  footer: {
-    marginTop: theme.spacing(2),
+  media: {
+    height: CARD_MEDIA_HEIGHT,
+  },
+  title: {
+    fontWeight: 600,
   },
 }))
 
-export default function FriendsItem({
-  displayName,
-  pictureUrl,
-  userId,
-  setFlashMessage,
-}) {
-  const melodyId = 99
+export default function FriendsItem({ displayName, pictureUrl, userId }) {
+  const MELODY_ID = 99
+  const dispatch = useDispatch()
   const classes = useStyles()
   const [ownership, setOwnership] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+
+  const loadOwnership = async () => {
+    const { data } = await axios.get('/ownership', {
+      params: {
+        userId,
+        melodyId: MELODY_ID,
+      },
+    })
+    setOwnership(data.status)
+  }
 
   useEffect(() => {
-    const loadOwnership = async () => {
-      setIsLoading(true)
-      const { data } = await axios.get(
-        `/ownership?userId=${userId}&melodyId=${melodyId}`
-      )
-      setOwnership(data.status)
-      setIsLoading(false)
-    }
-
     loadOwnership()
-  }, [])
+  }, [userId])
 
-  const purchase = async () => {
-    setFlashMessage(`Successfully sent song to ${displayName}`)
-
-    const { data } = await axios.post('/purchase', {
-      userId,
-      melodyId,
-    })
-  }
+  const purchaseSong = async () =>
+    dispatch(actions.sendGift(userId, MELODY_ID, displayName))
 
   return (
     <Grid item xs={12} sm={6} lg={3}>
-      <Card>
+      <Card elevation={0} className={classes.root}>
         <CardMedia
           image={pictureUrl}
           title={displayName}
           className={classes.media}
         />
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            align="center"
-            style={{ fontWeight: 600 }}
-          >
-            {displayName}
-          </Typography>
+          <Box mt={1} mb={2}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              align="center"
+              className={classes.title}
+            >
+              {displayName}
+            </Typography>
+          </Box>
           {ownership === 'available' ? (
             <Button
               variant="contained"
               color="primary"
-              onClick={purchase}
               size="small"
               fullWidth
-              startIcon={<RedeemIcon />}
               disableElevation
+              onClick={purchaseSong}
+              startIcon={<SendIcon />}
             >
-              Send Gift
+              Send this melody
             </Button>
           ) : (
             <Typography
@@ -91,7 +98,7 @@ export default function FriendsItem({
               gutterBottom
               align="center"
             >
-              This user already own this song
+              Already own this song
             </Typography>
           )}
         </CardContent>
